@@ -26,8 +26,7 @@
       //   alert("Invisible Unicode POC");
       //
       // Chaque caractère du payload = codePoint + 0xF0000.
-      const hidden =
-        "\u{F0061}\u{F006C}\u{F0065}\u{F0072}\u{F0074}\u{F0028}\u{F0022}\u{F0049}\u{F006E}\u{F0076}\u{F0069}\u{F0073}\u{F0069}\u{F0062}\u{F006C}\u{F0065}\u{F0020}\u{F0055}\u{F006E}\u{F0069}\u{F0063}\u{F006F}\u{F0064}\u{F0065}\u{F0020}\u{F0050}\u{F004F}\u{F0043}\u{F0022}\u{F0029}\u{F003B}";
+      const hidden = "󰁡󰁬󰁥󰁲󰁴󰀨󰀢󰁉󰁮󰁶󰁩󰁳󰁩󰁢󰁬󰁥󰀠󰁕󰁮󰁩󰁣󰁯󰁤󰁥󰀠󰁐󰁏󰁃󰀢󰀩󰀻";
 
       const payload = decode(hidden);
       console.log("Payload décodé :", payload); // devrait afficher : alert("Invisible Unicode POC");
