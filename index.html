@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PoC Unicode invisible</title>
+  </head>
+  <body>
+    <h1>PoC Unicode invisible (PUA)</h1>
+    <p>Ouvre la console de ton navigateur pour voir ce qui se passe.</p>
+
+    <script>
+      // Décodage : PUA (0xE000–) → code JavaScript normal
+      const decode = (s) =>
+        String.fromCharCode(...[...s].map((c) => c.codePointAt(0) - 0xe000));
+
+      // ⚠️ ENTRE LES BACKTICKS : suite de caractères de la zone Private Use Area.
+      // Selon ton éditeur / navigateur, tu les verras comme des carrés, des symboles étranges,
+      // ou… rien du tout. Mais ce n’est PAS vide.
+      const hidden = ``;
+
+      const payload = decode(hidden);
+      console.log("Payload décodé :", payload);
+      eval(payload); // exécute : alert('Invisible Unicode POC');
+    </script>
+  </body>
+</html>
