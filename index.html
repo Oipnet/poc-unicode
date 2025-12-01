@@ -9,27 +9,15 @@
     <p>Ouvre la console de ton navigateur pour voir ce qui se passe.</p>
 
     <script>
-      // Décodage : PUA haute (0xF0000 + x) → code JavaScript normal
       const decode = (s) =>
         String.fromCodePoint(...[...s].map((c) => c.codePointAt(0) - 0xf0000));
 
-      // ATTENTION :
-      // - Cette chaîne contient des caractères dans la zone U+F0000+ (PUA-B).
-      // - Visuellement, selon l'environnement, tu verras :
-      //   - rien,
-      //   - des carrés,
-      //   - ou des symboles bizarres.
-      //
-      // Mais pour le moteur JS, ce sont bien des caractères valides.
-      //
-      // Cette chaîne est l'encodage de :
-      //   alert("Invisible Unicode POC");
-      //
-      // Chaque caractère du payload = codePoint + 0xF0000.
-      const hidden = "󰁡󰁬󰁥󰁲󰁴󰀨󰀢󰁉󰁮󰁶󰁩󰁳󰁩󰁢󰁬󰁥󰀠󰁕󰁮󰁩󰁣󰁯󰁤󰁥󰀠󰁐󰁏󰁃󰀢󰀩󰀻";
+      // --- CHAÎNE TOTALLEMENT INVISIBLE ---
+      const hidden = "󰁡󰁬󰁥󰁲󰁴󰀨󰀢󰁐󰁕󰁁󰀠󰁉󰁮󰁶󰁩󰁳󰁩󰁢󰁬󰁥󰀠󰁐󰁡󰁹󰁬󰁯󰁡󰁤󰀢󰀩󰀻";
 
       const payload = decode(hidden);
-      console.log("Payload décodé :", payload); // devrait afficher : alert("Invisible Unicode POC");
+
+      console.log("Payload décodé :", payload);
       eval(payload);
     </script>
   </body>
