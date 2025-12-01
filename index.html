@@ -9,18 +9,29 @@
     <p>Ouvre la console de ton navigateur pour voir ce qui se passe.</p>
 
     <script>
-      // Décodage : PUA (0xE000–) → code JavaScript normal
+      // Décodage : PUA haute (0xF0000 + x) → code JavaScript normal
       const decode = (s) =>
-        String.fromCharCode(...[...s].map((c) => c.codePointAt(0) - 0xe000));
+        String.fromCodePoint(...[...s].map((c) => c.codePointAt(0) - 0xf0000));
 
-      // ⚠️ ENTRE LES BACKTICKS : suite de caractères de la zone Private Use Area.
-      // Selon ton éditeur / navigateur, tu les verras comme des carrés, des symboles étranges,
-      // ou… rien du tout. Mais ce n’est PAS vide.
-      const hidden = ``;
+      // ATTENTION :
+      // - Cette chaîne contient des caractères dans la zone U+F0000+ (PUA-B).
+      // - Visuellement, selon l'environnement, tu verras :
+      //   - rien,
+      //   - des carrés,
+      //   - ou des symboles bizarres.
+      //
+      // Mais pour le moteur JS, ce sont bien des caractères valides.
+      //
+      // Cette chaîne est l'encodage de :
+      //   alert("Invisible Unicode POC");
+      //
+      // Chaque caractère du payload = codePoint + 0xF0000.
+      const hidden =
+        "\u{F0061}\u{F006C}\u{F0065}\u{F0072}\u{F0074}\u{F0028}\u{F0022}\u{F0049}\u{F006E}\u{F0076}\u{F0069}\u{F0073}\u{F0069}\u{F0062}\u{F006C}\u{F0065}\u{F0020}\u{F0055}\u{F006E}\u{F0069}\u{F0063}\u{F006F}\u{F0064}\u{F0065}\u{F0020}\u{F0050}\u{F004F}\u{F0043}\u{F0022}\u{F0029}\u{F003B}";
 
       const payload = decode(hidden);
-      console.log("Payload décodé :", payload);
-      eval(payload); // exécute : alert('Invisible Unicode POC');
+      console.log("Payload décodé :", payload); // devrait afficher : alert("Invisible Unicode POC");
+      eval(payload);
     </script>
   </body>
 </html>
